@@ -1,2 +1,5 @@
 src/com/coirius/FatCow/Server.java
 src/com/coirius/FatCow/ServerThread.java
+src/com/coirius/FatCow/ServerSession.java
+src/com/coirius/FatCow/ServerSessionManager.java
+src/com/coirius/FatCow/ServerSessionException.java
