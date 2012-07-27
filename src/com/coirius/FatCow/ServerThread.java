@@ -27,7 +27,6 @@ public class ServerThread extends Thread {
 			PrintWriter out = new PrintWriter(ServerSessionManager.getInstance().getSession(_sessionId).getOutputStream(), true);
 
 			String str = "";
-			out.println(ServerSessionManager.getInstance().getSession(_sessionId).getAuthKey());
 
 			while((str = in.readLine()) != null) {
 				String[] parsedInputLine = str.split("(?<!\\\\)\\ ");
