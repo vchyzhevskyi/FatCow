@@ -6,5 +6,6 @@ src/com/coirius/FatCow/ServerSessionException.java
 src/com/coirius/FatCow/ServerModule.java
 src/com/coirius/FatCow/ServerModuleManager.java
 src/com/coirius/FatCow/ServerModuleException.java
+src/com/coirius/FatCow/ServerStatusCode.java
 
 src/com/coirius/FatCow/Modules/EchoModule.java

@@ -1,7 +1,7 @@
 package com.coirius.FatCow;
 
 public abstract class ServerModule {
-	public Object doWork(Object argv) {
+	public Object doWork(String[] argv) {
 		return null;
 	}
 

@@ -4,7 +4,7 @@ import com.coirius.FatCow.ServerModule;
 
 public class EchoModule extends ServerModule {
 	@Override
-	public Object doWork(Object argv) {
+	public Object doWork(String[] argv) {
 		return "ECHO";
 	}
 }

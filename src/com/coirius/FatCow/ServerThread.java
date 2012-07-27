@@ -41,19 +41,32 @@ public class ServerThread extends Thread {
 							out.println((String) res);
 							break;
 						}
+						case "[Ljava.lang.String;": {
+							for (String s : (String[]) res)
+								out.println(str);
+							break;
+						}
+						case "java.lang.Boolean": {
+							if((boolean) res)
+								out.println(ServerStatusCode.Success);
+							else
+								out.println(ServerStatusCode.Failed);
+							break;
+						}
 						default: {
+							out.println(ServerStatusCode.UnknownResultType);
 							break;
 						}
 					}
 				} catch (ClassNotFoundException ex) {
-					out.println("UnknownModule");
+					out.println(ServerStatusCode.UnknownModule);
 					ex.printStackTrace();
 				} catch (InstantiationException ex) {
 					ex.printStackTrace();
 				} catch (IllegalAccessException ex) {
 					ex.printStackTrace();
 				} catch (ServerModuleException ex) {
-					ex.printStackTrace();
+					out.println(ex.getMessage());
 				}
 			}
 
