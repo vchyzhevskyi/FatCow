@@ -6,11 +6,11 @@ Installation
 ------------
 Compile it using javac ...
 
-`$ [mkdir bin/ &&] javac @javac_options @javac_classes`
+`$ ant jar`
 
 ... and run:
 
-`$ [cd bin/ &&] java com.coirius.FatCow.Server`
+`$ java -jar bin/FatCow.jar`
 
 Changelog
 ---------

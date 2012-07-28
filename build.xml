@@ -1,0 +1,27 @@
+<project name="FatCow" basedir="." default="debug">
+	<property name="builddir" value="bin" />
+
+	<target name="debug" depends="init">
+		<javac srcdir="src" destdir="${builddir}" debug="true" includeantruntime="false" />
+	</target>
+
+	<target name="release" depends="init">
+		<javac srcdir="src" destdir="${builddir}" debug="false" includeantruntime="false" />
+	</target>
+
+	<target name="jar" depends="release">
+		<jar basedir="${builddir}" destfile="${builddir}/${ant.project.name}.jar">
+			<manifest>
+				<attribute name="Main-Class" value="com.coirius.FatCow.Server" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean">
+		<delete dir="${builddir}" />
+	</target>
+
+	<target name="init" depends="clean">
+		<mkdir dir="${builddir}" />
+	</target>
+</project>
