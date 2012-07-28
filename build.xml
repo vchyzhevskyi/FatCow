@@ -1,3 +1,7 @@
+<!--
+	Copyright (C) 2012, Vladyslav Chyzhevskyi
+	Published under GNU GPL v2
+-->
 <project name="FatCow" basedir="." default="debug">
 	<property name="builddir" value="bin" />
 

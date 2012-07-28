@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2012, Vladyslav Chyzhevskyi
+ * Published under GNU GPL v2
+ */
+
 package com.coirius.FatCow;
 
 import java.io.IOException;
@@ -32,6 +37,16 @@ public class ServerThread extends Thread {
 				String[] parsedInputLine = str.split("(?<!\\\\)\\ ");
 				if(parsedInputLine[0].equalsIgnoreCase("quit"))
 					break;
+				else if(parsedInputLine[0].equalsIgnoreCase("auth")) {
+					if(parsedInputLine[1].equalsIgnoreCase("req"))
+						out.println(ServerSessionManager.getInstance().getSession(_sessionKey).getSessionKey());
+					else if(parsedInputLine[1].equalsIgnoreCase("chk"))
+						if(ServerSessionManager.getInstance().getSession(_sessionKey).check(parsedInputLine[2]))
+							out.println(ServerStatusCode.Success);
+						else
+							out.println(ServerStatusCode.Failed);
+					continue;
+				}
 				try {
 					ServerModule module = (ServerModule) (Class.forName(ServerModuleManager.getInstance().get(parsedInputLine[0]).toString()).newInstance());
 					Object res = module.doWork(parsedInputLine);
@@ -70,6 +85,8 @@ public class ServerThread extends Thread {
 			}
 
 			ServerSessionManager.getInstance().stop(_sessionKey);
+			in.close();
+			out.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

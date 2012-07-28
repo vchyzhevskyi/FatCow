@@ -4,7 +4,7 @@ FatCow - it's an open-source (published under GNU GPL v2) cross-platform softwar
 
 Installation
 ------------
-Compile it using javac ...
+Compile it using Apache Ant ...
 
 `$ ant jar`
 
