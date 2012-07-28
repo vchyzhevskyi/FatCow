@@ -7,24 +7,24 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ServerThread extends Thread {
-	private int _sessionId = -1;
+	private String _sessionKey = "";
 
 	public ServerThread(Socket socket) {
 		super("FatCowServerThread");
 		try {
-			_sessionId = ServerSessionManager.getInstance().start(socket);
+			_sessionKey = ServerSessionManager.getInstance().start(socket);
 		} catch (ServerSessionException ex) {
-			_sessionId = -1;
+			_sessionKey = "";
 		}
 	}
 
 	@Override
 	public void run() {
 		try {
-			if(_sessionId == -1)
+			if(_sessionKey.isEmpty())
 				return;
-			BufferedReader in = new BufferedReader(new InputStreamReader(ServerSessionManager.getInstance().getSession(_sessionId).getInputStream()));
-			PrintWriter out = new PrintWriter(ServerSessionManager.getInstance().getSession(_sessionId).getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(ServerSessionManager.getInstance().getSession(_sessionKey).getInputStream()));
+			PrintWriter out = new PrintWriter(ServerSessionManager.getInstance().getSession(_sessionKey).getOutputStream(), true);
 
 			String str = "";
 
@@ -69,8 +69,8 @@ public class ServerThread extends Thread {
 				}
 			}
 
-			ServerSessionManager.getInstance().stop(_sessionId);
-		} catch (IOException ex) {
+			ServerSessionManager.getInstance().stop(_sessionKey);
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}

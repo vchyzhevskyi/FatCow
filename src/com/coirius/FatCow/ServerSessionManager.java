@@ -1,33 +1,39 @@
 package com.coirius.FatCow;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.net.Socket;
 import java.io.IOException;
 
 public class ServerSessionManager {
 	private static final ServerSessionManager _sessionManager = new ServerSessionManager();
-	private ArrayList<ServerSession> _sessionList = null;
+	private HashMap<String, ServerSession> _sessionList = null;
 
 	public static ServerSessionManager getInstance() {
 		return _sessionManager;
 	}
 
 	private ServerSessionManager() {
-		_sessionList = new ArrayList<ServerSession>();
+		_sessionList = new HashMap<String, ServerSession>();
 	}
 
-	public int start(Socket socket) throws ServerSessionException {
+	public String start(Socket socket) throws ServerSessionException {
 		ServerSession session = new ServerSession(socket);
-		_sessionList.add(session);
-		return _sessionList.indexOf(session);
+		if(session.getSessionKey().isEmpty())
+			throw new ServerSessionException("Session key is empty.");
+		else if(_sessionList.containsKey(session.getSessionKey()))
+			throw new ServerSessionException("Session with key " + session.getSessionKey() + " already exists.");
+		_sessionList.put(session.getSessionKey(), session);
+		return session.getSessionKey();
 	}
 
-	public void stop(int id) throws IOException {
-		_sessionList.get(id).close();
-		_sessionList.remove(id);
+	public void stop(String sessionKey) throws IOException, ServerSessionException {
+		if(!_sessionList.containsKey(sessionKey))
+			throw new ServerSessionException("Session does not exists.");
+		_sessionList.get(sessionKey).close();
+		_sessionList.remove(sessionKey);
 	}
 
-	public ServerSession getSession(int id) {
-		return _sessionList.get(id);
+	public ServerSession getSession(String sessionKey) {
+		return _sessionList.get(sessionKey);
 	}
 }
