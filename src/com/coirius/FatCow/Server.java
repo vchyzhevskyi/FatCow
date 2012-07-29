@@ -15,6 +15,7 @@ public class Server {
 		try {
 			srvSock = new ServerSocket(65535);
 			ServerModuleManager.getInstance().register("echo", new com.coirius.FatCow.Modules.EchoModule());
+			ServerModuleManager.getInstance().register("fs", new com.coirius.FatCow.Modules.FileSystemModule());
 			while(t)
 				new ServerThread(srvSock.accept()).start();
 			srvSock.close();

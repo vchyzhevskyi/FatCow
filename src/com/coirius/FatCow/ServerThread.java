@@ -35,12 +35,12 @@ public class ServerThread extends Thread {
 
 			while((str = in.readLine()) != null) {
 				String[] parsedInputLine = str.split("(?<!\\\\)\\ ");
-				if(parsedInputLine[0].equalsIgnoreCase("quit"))
+				if(parsedInputLine[0].equals("quit"))
 					break;
-				else if(parsedInputLine[0].equalsIgnoreCase("auth")) {
-					if(parsedInputLine[1].equalsIgnoreCase("req"))
+				else if(parsedInputLine[0].equals("auth")) {
+					if(parsedInputLine[1].equals("req"))
 						out.println(ServerSessionManager.getInstance().getSession(_sessionKey).getSessionKey());
-					else if(parsedInputLine[1].equalsIgnoreCase("chk"))
+					else if(parsedInputLine[1].equals("chk"))
 						if(ServerSessionManager.getInstance().getSession(_sessionKey).check(parsedInputLine[2]))
 							out.println(ServerStatusCode.Success);
 						else
@@ -57,7 +57,7 @@ public class ServerThread extends Thread {
 						}
 						case "[Ljava.lang.String;": {
 							for (String s : (String[]) res)
-								out.println(str);
+								out.println(s);
 							break;
 						}
 						case "java.lang.Boolean": {
@@ -81,6 +81,9 @@ public class ServerThread extends Thread {
 					ex.printStackTrace();
 				} catch (ServerModuleException ex) {
 					out.println(ex.getMessage());
+				} catch (NullPointerException ex) {
+					out.println(ServerStatusCode.Failed);
+					ex.printStackTrace();
 				}
 			}
 
