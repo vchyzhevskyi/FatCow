@@ -6,6 +6,10 @@
 package com.coirius.FatCow;
 
 public abstract class ServerModule {
+	public boolean getReqAuth() {
+		return false;
+	}
+
 	public Object doWork(String[] argv) {
 		return null;
 	}

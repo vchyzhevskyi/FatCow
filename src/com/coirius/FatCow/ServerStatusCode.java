@@ -9,5 +9,6 @@ public enum ServerStatusCode {
 	Success,
 	Failed,
 	UnknownModule,
-	UnknownResultType
+	UnknownResultType,
+	AuthenticationRequired
 }

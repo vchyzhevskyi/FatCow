@@ -18,6 +18,11 @@ import com.coirius.FatCow.ServerModule;
 
 public class FileSystemModule extends ServerModule {
 	@Override
+	public boolean getReqAuth() {
+		return true;
+	}
+
+	@Override
 	public Object doWork(String[] argv) {
 		Object res = null;
 		try {

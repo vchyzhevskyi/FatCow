@@ -45,10 +45,19 @@ public class ServerThread extends Thread {
 							out.println(ServerStatusCode.Success);
 						else
 							out.println(ServerStatusCode.Failed);
+					else if(parsedInputLine[1].equals("sts"))
+						if(ServerSessionManager.getInstance().getSession(_sessionKey).getSessionStatus())
+							out.println(ServerStatusCode.Success);
+						else
+							out.println(ServerStatusCode.Failed);
 					continue;
 				}
 				try {
 					ServerModule module = (ServerModule) (Class.forName(ServerModuleManager.getInstance().get(parsedInputLine[0]).toString()).newInstance());
+					if(module.getReqAuth() && !ServerSessionManager.getInstance().getSession(_sessionKey).getSessionStatus()) {
+						out.println(ServerStatusCode.AuthenticationRequired);
+						continue;
+					}
 					Object res = module.doWork(parsedInputLine);
 					switch (res.getClass().getName()) {
 						case "java.lang.String": {
