@@ -53,7 +53,7 @@ public class ServerThread extends Thread {
 					continue;
 				}
 				try {
-					ServerModule module = (ServerModule) (Class.forName(ServerModuleManager.getInstance().get(parsedInputLine[0]).toString()).newInstance());
+					ServerModule module = (ServerModule) (Class.forName(ServerModuleManager.getInstance().get(parsedInputLine[0])).newInstance());
 					if(module.getReqAuth() && !ServerSessionManager.getInstance().getSession(_sessionKey).getSessionStatus()) {
 						out.println(ServerStatusCode.AuthenticationRequired);
 						continue;
