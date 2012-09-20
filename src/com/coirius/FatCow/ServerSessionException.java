@@ -6,6 +6,8 @@
 package com.coirius.FatCow;
 
 public class ServerSessionException extends Exception {
+	private static final long serialVersionUID = -508323106626815443L;
+
 	public ServerSessionException() {
 		super();
 	}
